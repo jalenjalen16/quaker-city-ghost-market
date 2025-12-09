@@ -162,9 +162,90 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
 @media(max-width:980px){ .weapon-popup-body{flex-direction:column; align-items:center;} .weapon-popup-image{width:220px;height:220px;} .title{font-size:34px;} .grid{grid-template-columns: repeat(auto-fill, minmax(150px,1fr));} }
 @media(max-width:640px){ .weapon-popup-inner{width:96%;} .weapon-popup-image{width:180px;height:180px;} .title{font-size:26px} .grid{grid-template-columns: repeat(auto-fill, minmax(120px,1fr));} }
 
+    /* Your existing styles stay the same, do NOT remove them */
+
+    /* ⭐ NEW — RED SPIN INDICATOR */
+    .spin-indicator {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 120px;
+        border-radius: 6px;
+
+        /* RED GRADIENT */
+        background: linear-gradient(
+            180deg,
+            rgba(255, 0, 0, 0.95),
+            rgba(180, 0, 0, 0.85),
+            rgba(120, 0, 0, 0.75)
+        );
+
+        /* RED GLOW */
+        box-shadow:
+            0 0 12px rgba(255, 0, 0, 0.75),
+            0 0 28px rgba(255, 0, 0, 0.55),
+            0 0 40px rgba(255, 0, 0, 0.35);
+
+        pointer-events: none;
+    }
+
 </style>
 </head>
 <body>
+  <!-- ⭐ Your existing site content stays the same -->
+
+<!-- ===================================================== -->
+<!-- ⭐ SPIN MODAL (ONLY PART YOU NEEDED UPDATE)           -->
+<!-- ===================================================== -->
+
+<div id="spinModal" style="
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(6px);
+    z-index:9999;
+">
+    <div style="
+        position:absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%, -50%);
+        width:80%;
+        max-width:900px;
+        height:200px;
+        border-radius:22px;
+        background:rgba(0,0,0,0.35);
+        box-shadow:0 0 18px rgba(0,0,0,0.4);
+        overflow:hidden;
+    ">
+
+        <!-- The scrolling container with weapon cards -->
+        <div id="spinItems" style="
+            position:absolute;
+            top:0;
+            left:0;
+            height:100%;
+            width:max-content;
+            white-space:nowrap;
+            display:flex;
+            align-items:center;
+            gap:16px;
+            padding-left:40vw;
+        ">
+            <!-- YOUR SPIN ITEMS GO HERE -->
+        </div>
+
+        <!-- ⭐ NEW RED SPIN INDICATOR BAR -->
+        <div class="spin-indicator"></div>
+
+    </div>
+</div>
   <!-- Background video (muted) -->
   <video id="bgVideo" autoplay muted loop playsinline>
     <source src="video.mp4" type="video/mp4">
