@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quaker City Ghost Market | Contraband System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05070b;
+      --bg-alt: #0a0d14;
+      --card: #121826;
+      --accent: #5b8dff;
+      --accent-soft: rgba(91, 141, 255, 0.25);
+      --text-main: #f5f5f5;
+      --text-muted: #b0b5c6;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --danger: #ff4d6a;
+      --success: #3cd278;
+      --yellow: #ffcf4d;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #202848 0, #05070b 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      width: min(1150px, 94%);
+      margin: 1.5rem auto 3rem;
+    }
+
+    /* Header / hero */
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-logo-img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      box-shadow: 0 0 16px rgba(91, 141, 255, 0.5);
+    }
+
+    .brand-text h1 {
+      font-size: 1.05rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .links-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .pill {
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(5, 7, 11, 0.85);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+
+    .pill:hover {
+      background: #111521;
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .pill-accent {
+      border-color: var(--accent-soft);
+      background: linear-gradient(135deg, rgba(91, 141, 255, 0.25), rgba(5, 7, 11, 0.9));
+    }
+
+    .pill span.icon {
+      font-size: 0.9rem;
+    }
+
+    /* Main layout */
+
+    .grid-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.2fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: rgba(10, 13, 23, 0.9);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.2rem;
+    }
+
+    .card + .card {
+      margin-top: 1rem;
+    }
+
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.12rem 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--text-muted);
+    }
+
+    .badge-green {
+      border-color: rgba(60, 210, 120, 0.55);
+      color: var(--success);
+    }
+
+    .tab-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .tab {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: #080b12;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: var(--text-main);
+      border-color: var(--accent-soft);
+      background: linear-gradient(135deg, rgba(91, 141, 255, 0.25), #080b12);
+      box-shadow: 0 0 14px rgba(91, 141, 255, 0.5);
+    }
+
+    .chip {
+      padding: 0.18rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin: 0.8rem 0 0.4rem;
+    }
+
+    .select-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: #0b0f18;
+      color: var(--text-main);
+      padding: 0.45rem 2rem 0.45rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .select-wrap::after {
+      content: "▾";
+      position: absolute;
+      right: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.7rem;
+      pointer-events: none;
+      color: var
