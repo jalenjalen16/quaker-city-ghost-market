@@ -3,205 +3,109 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quaker city</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#081221;--panel:#0f1720;--muted:#9fb3cc;--accent:#c73b36;--accent-2:#1f8fff}
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#e6eef8;margin:0;background:linear-gradient(180deg,var(--bg),#04101a);min-height:100vh}
-    .app{display:flex;min-height:100vh}
-    .sidebar{width:260px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:24px;border-right:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:18px}
-    .logo{width:72px;height:72px;border-radius:10px;object-fit:cover}
-    .brand{font-weight:700;font-size:1.1rem}
-    .tag{color:var(--muted);font-size:0.85rem}
-    nav{margin-top:6px;display:flex;flex-direction:column;gap:8px}
-    .nav-link{padding:10px 12px;border-radius:8px;color:inherit;text-decoration:none;background:transparent;border:1px solid transparent}
-    .nav-link:hover{background:rgba(255,255,255,0.02)}
-    .nav-link.active{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.02)}
-    .spacer{flex:1}
-    .sidebar .small{font-size:0.85rem;color:var(--muted)}
-
-    .main{flex:1;padding:28px}
-    .header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    .search{flex:1;display:flex;align-items:center;gap:8px}
-    .search input{width:100%;padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit}
-    .header .actions{display:flex;gap:8px}
-    .btn{background:var(--accent-2);border:none;color:#fff;padding:8px 12px;border-radius:10px;cursor:pointer}
-
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .card{background:var(--panel);padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02)}
-    h2{margin:0 0 8px 0}
-    .muted{color:var(--muted);font-size:0.95rem}
-
-    .market-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .item{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);display:flex;align-items:center;gap:12px}
-    .item .thumb{width:56px;height:56px;background:linear-gradient(45deg,#122434,#223a54);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600}
-    .item .meta{flex:1}
-    .item .meta b{display:block}
-    .item .price{font-weight:700;color:var(--accent)}
-
-    .admin-only{padding:12px}
-
-    @media(max-width:980px){.sidebar{display:none}.grid{grid-template-columns:1fr}.market-list{grid-template-columns:1fr}}
-    footer{margin-top:18px;color:var(--muted);font-size:0.85rem}
-
-    /* Hero style to mimic Killadelphia layout */
-    .hero{height:260px;background:radial-gradient(ellipse at center, rgba(29,60,70,0.6), transparent 40%), url('https://raw.githubusercontent.com/StrictlyZel/Killadelphia-Contraband-System/main/images/v_230.png') center/cover no-repeat;border-radius:12px;margin-bottom:18px}
-    .hero .overlay{padding:20px;color:var(--muted)}
-  </style>
+  <title>Quaker City Roleplay — Contraband System</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Quaker City Roleplay Contraband System — buy, sell, and manage contraband with live prices and admin tools." />
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <img src="logo.png" alt="Quaker city logo" class="logo">
-      <div class="brand">Quaker city</div>
-      <div class="tag">Philadelphia • Contraband Market</div>
+  <header class="site-header">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Quaker City Roleplay Logo" class="logo" />
+      <div class="title-wrap">
+        <h1>Quaker City Roleplay</h1>
+        <p class="subtitle">Contraband Market • Inventory • Drop System</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="btn-settings" class="btn ghost">Settings</button>
+    </div>
+  </header>
 
-      <nav>
-        <a class="nav-link active" href="#">Market</a>
-        <a class="nav-link" href="#admin" id="nav-admin">Admin</a>
-        <a class="nav-link" href="#prices" id="nav-prices">Prices</a>
-        <a class="nav-link" href="#help">Help</a>
-      </nav>
-
-      <div class="spacer"></div>
-      <div class="small">Built for FiveM • Static demo</div>
-    </aside>
-
-    <main class="main">
-      <div class="header">
-        <div style="display:flex;flex-direction:column">
-          <div style="font-weight:700;font-size:1.4rem">Quaker city</div>
-          <div class="muted">Manage drops, prices and notifications</div>
+  <main class="container">
+    <section class="left-column">
+      <div class="controls">
+        <div class="control-left">
+          <button id="btn-refresh-prices" class="btn red">Refresh Prices</button>
+          <button id="btn-simulate-drop" class="btn">Simulate Drop</button>
         </div>
-        <div class="search"><input id="search" placeholder="Search items..."></div>
-        <div class="actions"><button id="open-admin-top" class="btn">Admin</button></div>
+        <div class="control-right">
+          <div class="uptime" title="Server uptime">
+            Uptime: <span id="uptime">--</span>s
+          </div>
+        </div>
       </div>
 
-      <div class="hero"><div class="overlay"><strong>Quaker City — Contraband Market</strong></div></div>
-
-      <div class="grid">
-        <section class="card">
-          <h2>Market</h2>
-          <div class="muted">Generate drops using the admin drop table. Click an item for quick copy.</div>
-
-          <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
-            <label style="min-width:120px">Quantity</label>
-            <input id="quantity" type="number" value="1" min="1" style="width:80px;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04)">
-            <button id="do-drop" class="btn">Generate</button>
-          </div>
-
-          <div id="drop-result" class="card" style="margin-top:12px"></div>
-
-          <div style="margin-top:12px"><h3 id="prices">Live prices</h3><div id="prices-list" class="muted">No price feed configured.</div></div>
-
-          <div style="margin-top:12px"><h3>Items</h3><div class="market-list" id="market-list"></div></div>
-
-          <footer>Remember: save your drop table in Admin. Webhook forwarding should be proxied for privacy.</footer>
-        </section>
-
-        <aside class="card admin-only" id="admin-panel" style="display:none">
-          <h3 id="admin">Admin panel</h3>
-          <div class="muted">Local admin (password stored in browser localStorage). For production use a server-side auth and config store.</div>
-
-          <label>Admin password</label>
-          <input id="admin-pass" type="password" placeholder="Set or enter admin password">
-          <div style="display:flex;gap:.5rem;margin-top:.5rem">
-            <button id="set-pass" class="btn">Set/Unlock</button>
-            <button id="logout" style="background:#b23a3a;color:#fff;border:none;padding:8px;border-radius:8px">Lock</button>
-          </div>
-
-          <label style="margin-top:10px">Discord webhook URL <span class="muted">(optional)</span></label>
-          <input id="webhook" placeholder="https://discord.com/api/webhooks/...">
-          <div style="display:flex;gap:.5rem;margin-top:.5rem"><button id="test-webhook" class="btn">Test</button><button id="save-webhook" class="btn">Save</button></div>
-
-          <label style="margin-top:10px">Server uptime URL</label>
-          <input id="server-url" placeholder="https://example.com/status">
-          <div style="display:flex;gap:.5rem;margin-top:.5rem"><button id="check-now" class="btn">Check Now</button><div id="uptime" class="muted" style="margin-left:auto"></div></div>
-
-          <label style="margin-top:10px">Price feed URL (JSON)</label>
-          <input id="price-url" placeholder="https://example.com/prices.json">
-          <div style="display:flex;gap:.5rem;margin-top:.5rem"><button id="fetch-prices" class="btn">Fetch Now</button><button id="save-price-url" class="btn">Save</button></div>
-
-          <label style="margin-top:10px">Drop table (item:weight)</label>
-          <textarea id="drop-table" rows="6" placeholder="sword:10\nshield:5\npotion:85" style="width:100%;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04)"></textarea>
-          <div style="display:flex;gap:.5rem;margin-top:.5rem">
-            <button id="save-drop" class="btn">Save Drop Table</button>
-            <button id="clear-drop" class="btn" style="background:#b23a3a">Clear</button>
-          </div>
-
-          <label style="margin-top:10px">Sound effects</label>
-          <div style="display:flex;gap:.5rem;margin-top:.5rem">
-            <button id="sfx-on" class="btn">Enable</button>
-            <button id="sfx-off" class="btn" style="background:#b23a3a">Disable</button>
-          </div>
-
-          <div style="margin-top:12px;display:flex;gap:.5rem;flex-wrap:wrap">
-            <button id="export-config" class="btn">Export Config</button>
-            <button id="import-config" class="btn">Import Config</button>
-          </div>
-
-        </aside>
+      <div class="market">
+        <h2>Market</h2>
+        <div id="items-grid" class="items-grid">
+          <!-- Items populated by script.js -->
+        </div>
       </div>
-    </main>
-  </div>
+    </section>
 
-  <script>
-    const LS_KEYS = {adminHash: 'qc_admin_hash', webhook: 'qc_webhook', serverUrl: 'qc_server_url', priceUrl: 'qc_price_url', dropTable: 'qc_drop_table', sfx: 'qc_sfx'};
-    const $ = id => document.getElementById(id);
+    <aside class="right-column">
+      <div class="panel prices">
+        <h3>Live Prices</h3>
+        <div id="prices-list" class="prices-list">
+          <!-- Price rows -->
+        </div>
+        <div class="prices-foot">
+          Updated: <span id="prices-updated">--</span>
+        </div>
+      </div>
 
-    async function sha256(text){ const data = new TextEncoder().encode(text); const hash = await crypto.subtle.digest('SHA-256', data); return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+      <div class="panel logs">
+        <h3>Activity Log</h3>
+        <div id="log-list" class="log-list">
+          <!-- Logs appended here -->
+        </div>
+      </div>
 
-    document.getElementById('open-admin-top').addEventListener('click', ()=>{ $('admin-panel').style.display='block'; window.location.hash='#admin'; });
-    document.getElementById('nav-admin').addEventListener('click', (e)=>{ e.preventDefault(); $('admin-panel').style.display='block'; window.location.hash='#admin'; });
-    $('logout').addEventListener('click', ()=>{ localStorage.removeItem(LS_KEYS.adminHash); alert('Locked'); $('admin-panel').style.display='none'; });
-    $('set-pass').addEventListener('click', async ()=>{ const pass = $('admin-pass').value.trim(); if(!pass) return alert('Enter a password'); const h = await sha256(pass); localStorage.setItem(LS_KEYS.adminHash,h); alert('Admin unlocked locally'); });
+      <div class="panel admin-panel" id="admin-panel">
+        <h3>Admin</h3>
+        <div class="admin-row">
+          <label for="backend-url">Backend URL</label>
+          <input id="backend-url" type="url" placeholder="https://your-render-backend.onrender.com" />
+        </div>
 
-    $('save-webhook').addEventListener('click', ()=>{ localStorage.setItem(LS_KEYS.webhook, $('webhook').value.trim()); alert('Webhook saved to browser localStorage'); });
-    $('test-webhook').addEventListener('click', async ()=>{ const url = localStorage.getItem(LS_KEYS.webhook) || $('webhook').value.trim(); if(!url) return alert('Set webhook URL first'); try{ await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'Test from Quaker City Ghost Market'})}); alert('Webhook test sent (if URL allowed)'); }catch(e){ alert('Webhook failed: '+e.message) } });
+        <div class="admin-row">
+          <label for="api-key-input">API Key</label>
+          <input id="api-key-input" type="text" placeholder="Enter API key or login below" />
+        </div>
 
-    async function checkServerNow(){ const url = localStorage.getItem(LS_KEYS.serverUrl) || $('server-url').value.trim(); if(!url){$('uptime').innerText='No URL';return} const dot=document.createElement('span'); dot.style.display='inline-block'; dot.style.width='10px'; dot.style.height='10px'; dot.style.borderRadius='50%'; dot.style.marginRight='8px'; try{ const t0=performance.now(); const res=await fetch(url,{method:'GET'}); const t1=performance.now(); const ms=Math.round(t1-t0); dot.style.background='lime'; $('uptime').innerHTML=''; $('uptime').appendChild(dot); $('uptime').append('Online ('+ms+'ms)'); }catch(e){ dot.style.background='crimson'; $('uptime').innerHTML=''; $('uptime').appendChild(dot); $('uptime').append('Offline') } }
-    $('check-now').addEventListener('click', checkServerNow);
+        <div class="admin-row">
+          <button id="btn-login" class="btn">Login (Admin)</button>
+          <button id="btn-unlock" class="btn ghost">Unlock Features</button>
+        </div>
 
-    $('save-price-url').addEventListener('click', ()=>{ localStorage.setItem(LS_KEYS.priceUrl, $('price-url').value.trim()); alert('Price URL saved') });
-    $('fetch-prices').addEventListener('click', fetchPrices);
+        <div id="admin-only" class="admin-only hidden">
+          <hr />
+          <h4>Weights Editor</h4>
+          <div id="weights-editor" class="weights-editor">
+            <!-- Editable weights loaded from backend -->
+          </div>
+          <div class="editor-actions">
+            <button id="btn-save-weights" class="btn red">Save Weights</button>
+          </div>
+        </div>
+      </div>
 
-    async function fetchPrices(){ const url = localStorage.getItem(LS_KEYS.priceUrl) || $('price-url').value.trim(); if(!url){ $('prices-list').innerText='No price feed configured.'; return } try{ const res = await fetch(url); if(!res.ok) throw new Error('HTTP '+res.status); const data = await res.json(); if(Array.isArray(data)){ $('prices-list').innerText = JSON.stringify(data,null,2); } else { $('prices-list').innerHTML=''; for(const k in data){ const el = document.createElement('div'); el.textContent = k+': '+data[k]; $('prices-list').appendChild(el) } } }catch(e){ $('prices-list').innerText='Fetch failed: '+e.message } }
+      <div class="panel about">
+        <h3>About</h3>
+        <p>Quaker City Roleplay contraband dashboard. Mimics the Killadelphia-Contraband-System layout, re-themed and rebranded.</p>
+      </div>
+    </aside>
+  </main>
 
-    function parseDrop(text){ const lines = text.split('\n').map(s=>s.trim()).filter(Boolean); const items=[]; for(const l of lines){ const [k,v]=l.split(':').map(s=>s.trim()); if(!k||isNaN(parseFloat(v))) continue; items.push({item:k,weight:parseFloat(v)}); } return items }
-    function saveDrop(){ const text = $('drop-table').value; const arr = parseDrop(text); localStorage.setItem(LS_KEYS.dropTable, JSON.stringify(arr)); alert('Drop table saved ('+arr.length+' items)'); }
-    $('save-drop').addEventListener('click', saveDrop);
-    $('clear-drop').addEventListener('click', ()=>{ localStorage.removeItem(LS_KEYS.dropTable); $('drop-table').value=''; alert('Drop table cleared') });
+  <footer class="site-footer">
+    <div>© <span id="year"></span> Quaker City Roleplay</div>
+    <div class="credits">Built for community management • Theme: Dark Blue & Red</div>
+  </footer>
 
-    function weightedPick(arr){ const total = arr.reduce((s,i)=>s+i.weight,0); let r=Math.random()*total; for(const i of arr){ if(r<i.weight) return i.item; r-=i.weight } return arr[0]?.item||null }
-    $('do-drop').addEventListener('click', ()=>{ const qty=Math.max(1,parseInt($('quantity').value)||1); const raw=localStorage.getItem(LS_KEYS.dropTable); let items = raw ? JSON.parse(raw) : []; if(items.length===0){ $('drop-result').innerText='No drop table configured.'; return } const results=[]; for(let i=0;i<qty;i++){ results.push(weightedPick(items)) } $('drop-result').innerText='Results: '+results.join(', '); if(localStorage.getItem(LS_KEYS.sfx)==='on') playDropSfx(); sendDropWebhook(results); })
+  <!-- Audio assets (preloaded) -->
+  <audio id="audio-click" src="assets/click.mp3" preload="auto"></audio>
+  <audio id="audio-notify" src="assets/notify.mp3" preload="auto"></audio>
 
-    function playDropSfx(){ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.type='sine'; o.frequency.value=440; g.gain.value=0.08; o.connect(g); g.connect(ctx.destination); o.start(); o.stop(ctx.currentTime+0.08); }catch(e){console.warn('SFX failed',e)} }
-    $('sfx-on').addEventListener('click', ()=>{ localStorage.setItem(LS_KEYS.sfx,'on'); alert('SFX enabled') });
-    $('sfx-off').addEventListener('click', ()=>{ localStorage.setItem(LS_KEYS.sfx,'off'); alert('SFX disabled') });
-
-    async function sendDropWebhook(results){ const url=localStorage.getItem(LS_KEYS.webhook); if(!url) return; try{ await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'Drop: '+results.join(', ')})}); }catch(e){ console.warn('Webhook send failed',e) } }
-
-    $('export-config').addEventListener('click', ()=>{ const exportObj={}; Object.values(LS_KEYS).forEach(k=>exportObj[k]=localStorage.getItem(k)||null); const blob=new Blob([JSON.stringify(exportObj,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='qc-config.json'; a.click(); URL.revokeObjectURL(url); })
-    $('import-config').addEventListener('click', ()=>{ const input=document.createElement('input'); input.type='file'; input.accept='application/json'; input.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const obj=JSON.parse(r.result); for(const k in obj){ if(obj[k]===null) localStorage.removeItem(k); else localStorage.setItem(k,obj[k]) } alert('Imported'); location.reload(); }catch(err){ alert('Invalid file') } }; r.readAsText(f); }; input.click(); })
-
-    function renderMarketList(){ const raw=localStorage.getItem(LS_KEYS.dropTable); const items = raw ? JSON.parse(raw) : [{item:'Example Sword',weight:10},{item:'Example Shield',weight:5},{item:'Common Potion',weight:85}]; const container=$('market-list'); container.innerHTML=''; for(const it of items){ const el=document.createElement('div'); el.className='item'; el.innerHTML=`<div class="thumb">${it.item.charAt(0).toUpperCase()}</div><div class="meta"><b>${it.item}</b><div class="muted">weight: ${it.weight}</div></div><div class="price">--</div>`; el.addEventListener('click', ()=>{ navigator.clipboard?.writeText(it.item); alert('Copied: '+it.item) }); container.appendChild(el) } }
-
-    window.addEventListener('load', ()=>{
-      $('webhook').value = localStorage.getItem(LS_KEYS.webhook) || '';
-      $('server-url').value = localStorage.getItem(LS_KEYS.serverUrl) || '';
-      $('price-url').value = localStorage.getItem(LS_KEYS.priceUrl) || '';
-      const drop = localStorage.getItem(LS_KEYS.dropTable);
-      $('drop-table').value = drop ? JSON.parse(drop).map(i=>i.item+':'+i.weight).join('\n') : '';
-      if(localStorage.getItem(LS_KEYS.sfx)===null) localStorage.setItem(LS_KEYS.sfx,'on');
-      renderMarketList();
-      if(localStorage.getItem(LS_KEYS.priceUrl)) fetchPrices();
-      setInterval(()=>{ if(localStorage.getItem(LS_KEYS.serverUrl)) checkServerNow() },30000);
-    });
-
-    $('search').addEventListener('input', (e)=>{ const q=e.target.value.toLowerCase(); document.querySelectorAll('.market-list .item').forEach(it=>{ const txt = it.querySelector('.meta b').innerText.toLowerCase(); it.style.display = txt.includes(q)?'flex':'none' }) });
-
-    console.log('Note: storing webhooks in localStorage on GitHub Pages is public. Use a proxy for private webhooks.')
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
