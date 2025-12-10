@@ -1134,26 +1134,13 @@ spinStartBtn.addEventListener('click', async ()=>{
   if(spinning) return;
   spinning = true;
   playSFX('spin');
-  renderSpinStrip();
   
   // Determine how many items to drop based on tier
   let itemCount = 4; // Default for tier1
   if(activeTab === 'testdrops') itemCount = 2;
   else if(activeTab === 'tier2') itemCount = 6;
   
-  // Calculate total spin duration: 1 second per item
-  const totalDuration = itemCount * 1000; // 1000ms per item
-  const steps = 15;
-  const delays = computeDelays(totalDuration, steps);
-  
-  // Animate the wheel
-  for (let i = 0; i < steps; i++){
-    const first = spinStrip.firstElementChild;
-    if(first) spinStrip.appendChild(first);
-    await tick(delays[i]);
-  }
-  
-  // Pick all items after spin completes
+  // Pick all items first
   const pickedItems = [];
   for(let i = 0; i < itemCount; i++) {
     const item = pickWeightedItem(activeTab);
@@ -1161,6 +1148,28 @@ spinStartBtn.addEventListener('click', async ()=>{
     addAcquired(item);
   }
   
+  // Spin for each item individually (1 second per spin)
+  for(let spinIndex = 0; spinIndex < itemCount; spinIndex++) {
+    renderSpinStrip();
+    
+    const steps = 15;
+    const duration = 1000; // 1 second per item
+    const delays = computeDelays(duration, steps);
+    
+    // Animate the wheel for this item
+    for (let i = 0; i < steps; i++){
+      const first = spinStrip.firstElementChild;
+      if(first) spinStrip.appendChild(first);
+      await tick(delays[i]);
+    }
+    
+    // Brief pause showing the landed item (200ms) before next spin
+    if(spinIndex < itemCount - 1) {
+      await tick(200);
+    }
+  }
+  
+  // After all spins complete, show all items won
   sendWebhook({ action:'spin', tier:activeTab, result:`${itemCount} items`, ts:new Date().toISOString() });
   playSFX('win');
   closeSpinModal();
