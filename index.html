@@ -24,6 +24,12 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:"Rajdhani",sans-serif;background:transparent;color:var(--text);-webkit-font-smoothing:antialiased;padding:20px;}
 
+/* Performance optimizations */
+.card, .victory-item, .drop-card { contain: layout style paint; }
+.modal-overlay, .victory-overlay { will-change: opacity; }
+.victory-card { will-change: transform, opacity; }
+img { will-change: auto; }
+
 /* ---------------------------
    Background video + overlay
    --------------------------- */
@@ -34,9 +40,9 @@ html,body{height:100%;margin:0;font-family:"Rajdhani",sans-serif;background:tran
   height:100%;
   object-fit:cover;
   z-index:0;
-  filter: blur(10px) saturate(.9);
-  transform: scale(1.02);
-  will-change: transform, filter;
+  filter: blur(4px) saturate(.9);
+  transform: scale(1.01);
+  will-change: transform;
 }
 #bgDark {
   position:fixed;
@@ -195,11 +201,11 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
 @keyframes victoryScale {
   0% {
     opacity: 0;
-    transform: scale(0.5) translateY(50px);
+    transform: scale(0.8) translateY(30px) translateZ(0);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0) translateZ(0);
   }
 }
 
@@ -258,11 +264,11 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
 @keyframes victoryItemAppear {
   from {
     opacity: 0;
-    transform: scale(0.8) translateY(20px);
+    transform: scale(0.9) translateY(10px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0) translateZ(0);
   }
 }
 
@@ -946,20 +952,21 @@ function enableBGM(){ function start(){ if(bgm){ bgm.play().catch(()=>{}); } doc
 enableBGM();
 setTimeout(()=> { const mp = localStorage.getItem('qc_music_on'); setMusicOn(mp !== '0'); }, 100);
 
-/* spinner modal logic: 5 second spin with easing */
+/* spinner modal logic: 3 second spin with easing */
 function renderSpinStrip(){
   spinStrip.innerHTML = '';
   const pool = (ITEMS[activeTab]||[]).slice();
   if(pool.length === 0){ spinStrip.innerHTML = '<div style="color:var(--muted)">No items in this category.</div>'; return; }
-  for(let i=0;i<60;i++){
+  const fragment = document.createDocumentFragment();
+  for(let i=0;i<40;i++){
     const it = rand(pool);
     const tile = document.createElement('div');
-    tile.style.minWidth='140px'; tile.style.height='120px'; tile.style.borderRadius='10px'; tile.style.overflow='hidden';
-    tile.style.background='linear-gradient(180deg, rgba(0,0,0,.16), rgba(255,255,255,0))'; tile.style.border='1px solid rgba(255,255,255,.04)';
-    tile.style.display='flex'; tile.style.flexDirection='column'; tile.style.alignItems='center'; tile.style.justifyContent='center';
-    tile.style.padding='8px'; tile.innerHTML = `<div style="font-weight:900;color:var(--muted);margin-bottom:6px;">${it.name}</div><img src="${it.img}" style="max-width:100%; max-height:64px; object-fit:contain" onerror="this.src='${FALLBACK}'">`;
-    spinStrip.appendChild(tile);
+    tile.className = 'spin-tile';
+    tile.style.cssText = 'min-width:140px;height:120px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(0,0,0,.16),rgba(255,255,255,0));border:1px solid rgba(255,255,255,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;contain:layout style paint;';
+    tile.innerHTML = `<div style="font-weight:900;color:var(--muted);margin-bottom:6px;">${it.name}</div><img src="${it.img}" style="max-width:100%;max-height:64px;object-fit:contain" loading="eager" onerror="this.src='${FALLBACK}'">`;
+    fragment.appendChild(tile);
   }
+  spinStrip.appendChild(fragment);
 }
 
 function computeDelays(durationMs, steps){
@@ -978,11 +985,12 @@ spinStartBtn.addEventListener('click', async ()=>{
   spinning = true;
   playSFX('spin');
   renderSpinStrip();
-  const steps = 60;
-  const duration = 5000; // 5 seconds total
+  const steps = 40;
+  const duration = 3000; // 3 seconds total
   const delays = computeDelays(duration, steps);
   for (let i=0;i<steps;i++){
-    if(spinStrip.firstElementChild) spinStrip.appendChild(spinStrip.firstElementChild);
+    const first = spinStrip.firstElementChild;
+    if(first) spinStrip.appendChild(first);
     await tick(delays[i]);
   }
   
@@ -1005,7 +1013,7 @@ spinStartBtn.addEventListener('click', async ()=>{
     closeSpinModal(); 
     spinning = false; 
     showVictoryFrame(pickedItems);
-  }, 700);
+  }, 300);
 });
 
 function openSpinModal(){ spinModal.classList.add('open'); spinModal.style.display='flex'; renderSpinStrip(); }
@@ -1021,25 +1029,27 @@ function showVictoryFrame(items) {
   const victoryHeaderText = document.getElementById('victoryHeaderText');
   
   // Update header
-  victoryHeaderText.textContent = items.length > 1 ? 'YOU GOT:' : 'YOU GOT:';
+  victoryHeaderText.textContent = 'YOU GOT:';
   victoryCount.textContent = `${items.length} ITEM${items.length > 1 ? 'S' : ''}`;
   
   // Clear existing items
   victoryItemsGrid.innerHTML = '';
   
-  // Add each item to grid
+  // Use document fragment for better performance
+  const fragment = document.createDocumentFragment();
   items.forEach((item, index) => {
     const itemEl = document.createElement('div');
     itemEl.className = 'victory-item';
     itemEl.innerHTML = `
       <div class="victory-image-container">
-        <img src="${item.img || FALLBACK}" alt="${item.name}" onerror="this.src='${FALLBACK}'">
+        <img src="${item.img || FALLBACK}" alt="${item.name}" loading="eager" onerror="this.src='${FALLBACK}'">
       </div>
       <div class="victory-item-name">${item.name}</div>
       <div class="victory-item-rarity ${item.rarity.toLowerCase()}">${item.rarity.toUpperCase()}</div>
     `;
-    victoryItemsGrid.appendChild(itemEl);
+    fragment.appendChild(itemEl);
   });
+  victoryItemsGrid.appendChild(fragment);
   
   // Adjust grid columns based on item count
   if(items.length === 2) {
@@ -1050,7 +1060,9 @@ function showVictoryFrame(items) {
     victoryItemsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
   }
   
-  victoryFrame.style.display = 'flex';
+  requestAnimationFrame(() => {
+    victoryFrame.style.display = 'flex';
+  });
   playSFX('win');
 }
 
