@@ -952,13 +952,13 @@ function enableBGM(){ function start(){ if(bgm){ bgm.play().catch(()=>{}); } doc
 enableBGM();
 setTimeout(()=> { const mp = localStorage.getItem('qc_music_on'); setMusicOn(mp !== '0'); }, 100);
 
-/* spinner modal logic: 2 second spin with easing */
+/* spinner modal logic: 1 second spin with easing */
 function renderSpinStrip(){
   spinStrip.innerHTML = '';
   const pool = (ITEMS[activeTab]||[]).slice();
   if(pool.length === 0){ spinStrip.innerHTML = '<div style="color:var(--muted)">No items in this category.</div>'; return; }
   const fragment = document.createDocumentFragment();
-  for(let i=0;i<20;i++){
+  for(let i=0;i<15;i++){
     const it = rand(pool);
     const tile = document.createElement('div');
     tile.className = 'spin-tile';
@@ -985,8 +985,8 @@ spinStartBtn.addEventListener('click', async ()=>{
   spinning = true;
   playSFX('spin');
   renderSpinStrip();
-  const steps = 20;
-  const duration = 2000; // 2 seconds total
+  const steps = 15;
+  const duration = 1000; // 1 second total
   const delays = computeDelays(duration, steps);
   for (let i=0;i<steps;i++){
     const first = spinStrip.firstElementChild;
