@@ -435,7 +435,14 @@ const ITEMS = {
   ],
   drugs: [
     { name:'RP 10', rarity:'common', category:'Common', img:FALLBACK },
-    { name:'RP 20', rarity:'rare', category:'Rare', img:FALLBACK }
+    { name:'MBox 10', rarity:'common', category:'Common', img:FALLBACK },
+    { name:'V 230', rarity:'common', category:'Common', img:FALLBACK },
+    { name:'RP 15', rarity:'uncommon', category:'Uncommon', img:FALLBACK },
+    { name:'MBox 15', rarity:'uncommon', category:'Uncommon', img:FALLBACK },
+    { name:'RP 20', rarity:'rare', category:'Rare', img:FALLBACK },
+    { name:'MBox 30', rarity:'rare', category:'Rare', img:FALLBACK },
+    { name:'Percocet', rarity:'epic', category:'Epic', img:FALLBACK },
+    { name:'Lean', rarity:'epic', category:'Epic', img:FALLBACK }
   ]
 };
 
@@ -581,7 +588,7 @@ function renderGrid(){
   const nodes = itemsForTab(activeTab);
   if(activeTab === 'turf'){
     const local = 'images/turfmap.png';
-    const remote = 'https://media.discordapp.net/attachments/1445307831220699229/1447757901463683114/image.png';
+    const remote = 'Turf.png';
     contentArea.innerHTML = `<div class="turf-map"><img src="${local}" alt="Turf Map" onerror="this.onerror=null; this.src='${remote}';"></div>`;
     return;
   }
@@ -719,8 +726,11 @@ function pickWeightedItem(tabKey){
   const rarity = pickRarity(weights);
   const pool = (ITEMS[tabKey]||[]).filter(i=> i.rarity === rarity);
   if(pool.length) return rand(pool);
-  const all = [].concat(...Object.values(ITEMS));
-  return rand(all);
+  // If no items of that rarity exist in this tab, pick from any rarity in THIS tab only
+  const tabItems = ITEMS[tabKey] || [];
+  if(tabItems.length) return rand(tabItems);
+  // Ultimate fallback: tier1 items
+  return rand(ITEMS.tier1 || [{ name:'Fallback', rarity:'common', category:'Unknown', img:FALLBACK }]);
 }
 
 /* acquired */
