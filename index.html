@@ -185,6 +185,7 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
         <div class="topnav" id="mainNav">
           <div class="cat active" data-tab="tier1"><i class="fa-solid fa-gun"></i>&nbsp;Tier 1 Weaponry</div>
           <div class="cat" data-tab="tier2"><i class="fa-solid fa-shield"></i>&nbsp;Tier 2 Weaponry</div>
+          <div class="cat" data-tab="testdrops"><i class="fa-solid fa-bullseye"></i>&nbsp;Test Drops</div>
           <div class="cat" data-tab="attachments"><i class="fa-solid fa-wrench"></i>&nbsp;Attachments</div>
           <div class="cat" data-tab="drugs"><i class="fa-solid fa-capsules"></i>&nbsp;Drugs</div>
           <div class="cat" data-tab="turf"><i class="fa-solid fa-map"></i>&nbsp;Turf Map</div>
@@ -416,6 +417,18 @@ const ITEMS = {
     { name:'KEL-TEC PLR', rarity:'epic', category:'Pistols', img:IMAGES['KEL-TEC PLR'] || FALLBACK },
     { name:'All Black Draco', rarity:'legendary', category:'ARs', img:IMAGES['Draco'] || FALLBACK }
   ],
+  testdrops: [
+    { name:'.38 Special', rarity:'common', category:'Pistols', img:IMAGES['.38 Special'] || FALLBACK },
+    { name:'Ghost Glock 17', rarity:'common', category:'Pistols', img:IMAGES['Ghost Glock 17'] || FALLBACK },
+    { name:'Beretta M9', rarity:'common', category:'Pistols', img:IMAGES['Beretta M9'] || FALLBACK },
+    { name:'MP9', rarity:'common', category:'SMG', img:IMAGES['MP9'] || FALLBACK },
+    { name:'G23', rarity:'uncommon', category:'Pistols', img:IMAGES['G23'] || FALLBACK },
+    { name:'G43', rarity:'uncommon', category:'Pistols', img:IMAGES['G43'] || FALLBACK },
+    { name:'G22', rarity:'rare', category:'SMG', img:IMAGES['G22'] || FALLBACK },
+    { name:'G41', rarity:'rare', category:'SMG', img:IMAGES['G41'] || FALLBACK },
+    { name:'G19 MOS', rarity:'rare', category:'Pistols', img:IMAGES['G19 MOS'] || FALLBACK },
+    { name:'Glock 20 Switch', rarity:'epic', category:'Pistols', img:IMAGES['Glock 20 Switch'] || FALLBACK }
+  ],
   attachments: [
     { name:'Extended Magazine', rarity:'rare', category:'Mags', img:FALLBACK },
     { name:'Flashlight', rarity:'uncommon', category:'Mags', img:FALLBACK }
@@ -430,6 +443,7 @@ const ITEMS = {
 const DEFAULT_WEIGHTS = {
   tier1: { common:35, uncommon:40, rare:25, epic:10 },
   tier2: { rare:50, epic:40, legendary:10 },
+  testdrops: { common:40, uncommon:30, rare:20, epic:10 },
   attachments: { uncommon:50, rare:30, epic:15, legendary:5 },
   drugs: { common:35, uncommon:25, rare:25, epic:15 }
 };
@@ -507,6 +521,7 @@ function loadAdmin(){ const cfg = loadCfg(); adminWebhook.value = cfg.webhook||'
 const SUBTABS = {
   tier1: ['All','Pistols','SMG','ARs','Specials'],
   tier2: ['All','ARs','Snipers','LMGs'],
+  testdrops: ['All','Pistols','SMG'],
   attachments: ['All','Mags','Optics','Other'],
   drugs: ['All','Common','Rare']
 };
