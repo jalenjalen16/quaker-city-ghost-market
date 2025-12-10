@@ -225,21 +225,24 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
   width: 280px;
   height: 280px;
   margin: 0 auto 30px;
-  background: linear-gradient(135deg, #ff6b35, #dc143c);
+  background: linear-gradient(135deg, #ff0000, #dc143c, #ff0000);
+  border: 3px solid #ff0000;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 40px rgba(220, 20, 60, 0.5);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 0, 0.2);
   animation: victoryImagePulse 2s ease-in-out infinite;
 }
 
 @keyframes victoryImagePulse {
   0%, 100% {
-    box-shadow: 0 10px 40px rgba(220, 20, 60, 0.5);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 0, 0.2);
+    border-color: #ff0000;
   }
   50% {
-    box-shadow: 0 10px 60px rgba(220, 20, 60, 0.8);
+    box-shadow: 0 0 50px rgba(255, 0, 0, 1), 0 0 100px rgba(255, 0, 0, 0.8), inset 0 0 40px rgba(255, 0, 0, 0.3);
+    border-color: #ff3333;
   }
 }
 
