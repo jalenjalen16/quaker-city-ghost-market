@@ -1135,14 +1135,36 @@ spinStartBtn.addEventListener('click', async ()=>{
   spinning = true;
   playSFX('spin');
   renderSpinStrip();
-  const steps = 15;
-  const duration = 1000; // 1 second total
-  const delays = computeDelays(duration, steps);
-  for (let i=0;i<steps;i++){
+  
+  // Multiple full rotations for suspense (4-5 complete spins)
+  const fullRotations = 4;
+  const tilesPerRotation = 15;
+  const slowdownSteps = 20; // Additional steps to slow down at the end
+  const totalSteps = (fullRotations * tilesPerRotation) + slowdownSteps;
+  
+  // Create easing effect: fast spins, then slow deceleration
+  const delays = [];
+  for(let i = 0; i < totalSteps; i++) {
+    if(i < fullRotations * tilesPerRotation) {
+      // Fast initial spins (30-50ms per step)
+      delays.push(30 + Math.random() * 20);
+    } else {
+      // Gradual slowdown at the end
+      const slowdownProgress = (i - (fullRotations * tilesPerRotation)) / slowdownSteps;
+      const delay = 50 + (slowdownProgress * 200); // 50ms -> 250ms
+      delays.push(delay);
+    }
+  }
+  
+  // Animate the spin
+  for (let i = 0; i < totalSteps; i++){
     const first = spinStrip.firstElementChild;
     if(first) spinStrip.appendChild(first);
     await tick(delays[i]);
   }
+  
+  // Brief pause before showing results for suspense
+  await tick(300);
   
   // Determine how many items to drop based on tier
   let itemCount = 4; // Default for tier1
