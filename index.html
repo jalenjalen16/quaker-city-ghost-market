@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Five Borough Illegal Civ</title>
+<title>Quaker City</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -504,15 +504,15 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
   <div class="wrap">
     <div class="header">
       <div class="header-left">
-        <h1 class="title">The Five Borough Illegal Civ</h1>
-        <div class="subtitle">Spin System</div>
+        <h1 class="title">Quaker City</h1>
+        <div class="subtitle">Illegal System</div>
 
         <div class="topnav" id="mainNav">
           <div class="cat active" data-tab="tier1"><i class="fa-solid fa-gun"></i>&nbsp;Tier 1</div>
           <div class="cat" data-tab="tier2"><i class="fa-solid fa-shield"></i>&nbsp;Tier 2</div>
           <div class="cat" data-tab="testdrops"><i class="fa-solid fa-bullseye"></i>&nbsp;Test Drops</div>
+          <div class="cat" data-tab="attachments"><i class="fa-solid fa-wrench"></i>&nbsp;Attachments</div>
           <div class="cat" data-tab="drugs"><i class="fa-solid fa-capsules"></i>&nbsp;Drugs</div>
-          <div class="cat" data-tab="roe"><i class="fa-solid fa-book"></i>&nbsp;ROE</div>
         </div>
 
         <div class="subtabs" id="subtabs"></div>
@@ -568,7 +568,7 @@ select{ background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.04); colo
     </div>
 
     <div style="height:18px"></div>
-    <div class="footer"><div>© The Five Borough Illegal Civ</div><div style="color:var(--muted)">Built with ❤️</div></div>
+    <div class="footer"><div>© Quaker City Roleplay</div><div style="color:var(--muted)">Built with ❤️</div></div>
   </div>
 
   <!-- Spin modal -->
@@ -863,8 +863,53 @@ const ITEMS = {
     { name:'G40', rarity:'epic', category:'Pistols', img:IMAGES['G40'] || FALLBACK }
   ],
   tier2: [
-    { name:'M45A1', rarity:'rare', category:'Pistols', img:IMAGES['M45A1'] || FALLBACK },
-    { name:'PX4 Storm', rarity:'rare', category:'Pistols', img:IMAGES['PX4 Storm'] || FALLBACK }
+    /* -------- UNCOMMON -------- */
+    { name:'Fn509', rarity:'uncommon', category:'Pistols', img:IMAGES['Fn509'] },
+    { name:'G19x', rarity:'uncommon', category:'Pistols', img:IMAGES['G19x'] },
+    { name:'G27', rarity:'uncommon', category:'Pistols', img:IMAGES['G27'] },
+
+    /* -------- RARE -------- */
+    { name:'1911', rarity:'rare', category:'Pistols', img:IMAGES['1911'] },
+    { name:'G22', rarity:'rare', category:'SMG', img:IMAGES['G22'] },
+    { name:'G41', rarity:'rare', category:'SMG', img:IMAGES['G41'] },
+    { name:'G19 MOS', rarity:'rare', category:'Pistols', img:IMAGES['G19 MOS'] },
+    { name:'Fn57', rarity:'rare', category:'Pistols', img:IMAGES['Fn57'] },
+    { name:'G19 GFlex', rarity:'rare', category:'Pistols', img:IMAGES['G19 GFlex'] },
+    { name:'G30', rarity:'rare', category:'Pistols', img:IMAGES['G30'] },
+    { name:'Ruger SR45', rarity:'rare', category:'Pistols', img:IMAGES['Ruger SR45'] },
+    { name:'GH', rarity:'rare', category:'Pistols', img:IMAGES['GH'] },
+    { name:'M45A1', rarity:'rare', category:'Pistols', img:IMAGES['M45A1'] },
+    { name:'PX4 Storm', rarity:'rare', category:'Pistols', img:IMAGES['PX4 Storm'] },
+
+    /* -------- EPIC -------- */
+    { name:'Glock 20 Switch', rarity:'epic', category:'Pistols', img:IMAGES['Glock 20 Switch'] },
+    { name:'FNX -45', rarity:'epic', category:'Pistols', img:IMAGES['FNX -45'] },
+    { name:'Tec-9', rarity:'epic', category:'Pistols', img:IMAGES['Tec-9'] },
+    { name:'MAC-10', rarity:'epic', category:'SMG', img:IMAGES['MAC-10'] },
+    { name:'Tactical UZI', rarity:'epic', category:'SMG', img:IMAGES['Tactical UZI'] },
+    { name:'KEL-TEC PLR', rarity:'epic', category:'Pistols', img:IMAGES['KEL-TEC PLR'] },
+    { name:'Tone ARP', rarity:'epic', category:'ARs', img:IMAGES['Tone ARP'] },
+    { name:'300 ARP', rarity:'epic', category:'ARs', img:IMAGES['300 ARP'] },
+    { name:'G17 Switch', rarity:'epic', category:'Pistols', img:IMAGES['G17 Switch'] },
+    { name:'G17B', rarity:'epic', category:'Pistols', img:IMAGES['G17B'] },
+    { name:'G40', rarity:'epic', category:'Pistols', img:IMAGES['G40'] },
+    { name:'Red ARP', rarity:'epic', category:'ARs', img:IMAGES['Red ARP'] },
+    { name:'MPA30', rarity:'epic', category:'SMG', img:IMAGES['MPA30'] },
+    { name:'Keltec', rarity:'epic', category:'SMG', img:IMAGES['Keltec'] },
+    { name:'Incognito G19', rarity:'epic', category:'Pistols', img:IMAGES['Incognito G19'] },
+
+    /* -------- LEGENDARY -------- */
+    { name:'AK-47', rarity:'legendary', category:'ARs', img:IMAGES['AK-47'] },
+    { name:'HELLPUP DRACO', rarity:'legendary', category:'ARs', img:IMAGES['HELLPUP DRACO'] },
+    { name:'All Black Draco', rarity:'legendary', category:'ARs', img:IMAGES['All Black Draco'] },
+    { name:'ZPAP M92', rarity:'legendary', category:'ARs', img:IMAGES['ZPAP M92'] },
+    { name:'Deagle', rarity:'legendary', category:'Pistols', img:IMAGES['Deagle'] },
+    { name:'G18c', rarity:'legendary', category:'Pistols', img:IMAGES['G18c'] },
+    { name:'XDM-Elite', rarity:'legendary', category:'Pistols', img:IMAGES['XDM-Elite'] },
+    { name:'P90', rarity:'legendary', category:'SMG', img:IMAGES['P90'] },
+    { name:'MP5A3', rarity:'legendary', category:'SMG', img:IMAGES['MP5A3'] },
+    { name:'Red Draco', rarity:'legendary', category:'ARs', img:IMAGES['Red Draco'] },
+    { name:'M16A1', rarity:'legendary', category:'ARs', img:IMAGES['M16A1'] }
   ],
   testdrops: [
     { name:'.38 Special', rarity:'common', category:'Pistols', img:IMAGES['.38 Special'] || FALLBACK },
@@ -888,6 +933,10 @@ const ITEMS = {
     { name:'PX4 Storm', rarity:'rare', category:'Pistols', img:IMAGES['PX4 Storm'] || FALLBACK },
 
   ],
+  attachments: [
+    { name:'Extended Magazine', rarity:'rare', category:'Mags', img:FALLBACK },
+    { name:'Flashlight', rarity:'uncommon', category:'Mags', img:FALLBACK }
+  ],
   drugs: [
     { name:'RP 10', rarity:'common', category:'Common', img:FALLBACK },
     { name:'MBox 10', rarity:'common', category:'Common', img:FALLBACK },
@@ -904,8 +953,9 @@ const ITEMS = {
 /* weights */
 const DEFAULT_WEIGHTS = {
   tier1: { common:35, uncommon:40, rare:25, epic:10 },
-  tier2: { rare:100 },
+  tier2: { uncommon:15, rare:40, epic:30, legendary:15 },
   testdrops: { common:40, uncommon:30, rare:20, epic:5 },
+  attachments: { uncommon:50, rare:30, epic:15, legendary:5 },
   drugs: { common:35, uncommon:25, rare:25, epic:15 }
 };
 
@@ -985,10 +1035,10 @@ function loadAdmin(){ const cfg = loadCfg(); adminWebhook.value = cfg.webhook||'
 /* ---------- subtabs sets ---------- */
 const SUBTABS = {
   tier1: ['All','Pistols','SMG'],
-  tier2: ['All','Pistols'],
+  tier2: ['All','Pistols','SMG','ARs'],
   testdrops: ['All','Pistols','SMG'],
-  drugs: ['All','Common','Rare'],
-  roe: ['All']
+  attachments: ['All','Mags','Optics','Other'],
+  drugs: ['All','Common','Rare']
 };
 function renderSubtabs(tab){
   subtabsEl.innerHTML = '';
@@ -1084,113 +1134,6 @@ function createCard(item){
 /* render grid */
 function renderGrid(){
   const nodes = itemsForTab(activeTab);
-
-  // Handle ROE tab
-  if(activeTab === 'roe'){
-    contentArea.innerHTML = `
-      <div style="max-width:1000px; margin:0 auto; padding:24px;">
-        <div style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.4)); border:2px solid var(--glass-border); border-radius:16px; padding:32px; backdrop-filter:blur(12px);">
-          <h2 style="color:var(--accent); font-weight:900; font-size:32px; margin-bottom:24px; text-align:center;">
-            <i class="fa-solid fa-scale-balanced"></i> TFB:RP Illegal Civilian Rules of Engagement
-          </h2>
-          
-          <div style="color:var(--text); line-height:1.8; font-size:16px;">
-            <div style="margin-bottom:24px;">
-              <ul style="list-style:none; padding:0; margin:0;">
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Legal/Illegal Civilian's, must clearly identify the exact player you plan to engage with/attack if your target is inside a faction turf and or inside of a faction, ensure there are at least four faction members present (Including your target) before taking action. T1(Tier1) Civilians get two attacks per week, and T2(Tier2) Civilians get three, unless defending yourself or using an approved attack upgrade.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Before attempting a kill, you must have a minimum of eight meaningful negative interactions with the character unless there is already established shooting beef. All attacks must be backed with Strong, Realistic escalation that Legal Civilian Management can confirm and approve.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  If a player disrespects your deceased associates, on the first interaction, you may only escalate to a robbery at that moment. <strong style="color:var(--accent);">(if you want BUT YOU CANNOT SHOOT)</strong> A kill is only allowed after eight+ neg interactions and enough story driven roleplay that makes the conflict deep and believable, simple insults alone are not considered proper escalation.
-                </li>
-              </ul>
-            </div>
-
-            <div style="margin-bottom:28px; background:rgba(220,20,60,.1); border:2px solid var(--accent); border-radius:10px; padding:20px;">
-              <h3 style="color:var(--accent); font-weight:800; font-size:20px; margin-bottom:14px;">
-                <i class="fa-solid fa-bullseye"></i> Attack Limits
-              </h3>
-              <ul style="list-style:none; padding:0; margin:0;">
-                <li style="margin-bottom:10px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-star" style="position:absolute; left:8px; top:6px; font-size:8px; color:var(--accent);"></i>
-                  <strong>Tier 1 Illegal Civilian's</strong> = 2 attacks per week.
-                </li>
-                <li style="margin-bottom:10px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-star" style="position:absolute; left:8px; top:6px; font-size:8px; color:var(--accent);"></i>
-                  <strong>Tier 2 Illegal Civilian's</strong> = 3 attacks per week.
-                </li>
-                <li style="padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-star" style="position:absolute; left:8px; top:6px; font-size:8px; color:var(--accent);"></i>
-                  All actions must be logged properly and checked off by <strong>(Illegal Civ Team)</strong> inside your thread.
-                </li>
-              </ul>
-            </div>
-
-            <div style="margin-bottom:24px;">
-              <h3 style="color:var(--accent); font-weight:800; font-size:22px; margin-bottom:16px; border-bottom:2px solid var(--accent); padding-bottom:8px;">
-                <i class="fa-solid fa-exclamation-triangle"></i> Important Rules
-              </h3>
-              <ul style="list-style:none; padding:0; margin:0;">
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Every kill, shooting, and robbery, must be clipped and pinpointed. <strong style="color:var(--accent);">No clip = Situation may be voided.</strong> (if the player report's)
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  You may attack solo or alongside other approved Legal Civilians, Only those accepted into the Illegal Civilians scheme may participate in group attacks with you.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Any hostile weapon interaction, including firing in someone's direction counts as an attack. <strong style="color:var(--accent);">( Each attack must be recorded with nvidia in your thread )</strong>
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  All attacks require a strong roleplay foundation, Poor or rushed escalation will result in punishments, including potential removal from the scheme. If you believe your death lacked escalation, you're free to submit a report.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Driveby attacks from exotic vehicles, <strong>(Lambroghinis, Ferraris, ect.)</strong> are strictly blocked.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  All weapon usage must be portrayed realistically, Low effort or sloppy gun roleplay will not be tolerated.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Legal Civilians may not act as "defense" for a faction on their turf. If the roleplay doesn't naturally justify your presence, you shouldn't be on their turf waiting for someone to spin. Legal Civilian Groups shouldn't camp turfs after being warned.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  If you join faction members in an attack, it still counts toward your weekly attack limit. Again only approved Legal Civilians can attack with factions.
-                </li>
-                <li style="margin-bottom:16px; padding-left:24px; position:relative;">
-                  <i class="fa-solid fa-circle" style="position:absolute; left:8px; top:8px; font-size:6px; color:var(--accent);"></i>
-                  Shooting Strictly For Roleplay, <strong>(Shooting Into The Sky)</strong> counts as a negative interaction, not an attack. But if you fire towards a player, it becomes an official attack.
-                </li>
-              </ul>
-            </div>
-
-            <div style="background:rgba(220,20,60,.15); border-left:4px solid var(--accent); padding:20px; border-radius:8px; margin-top:32px;">
-              <p style="margin:0; font-weight:700; font-size:18px;">
-                <i class="fa-solid fa-triangle-exclamation"></i> <strong>Remember:</strong>
-              </p>
-              <p style="margin:8px 0 0 0; color:var(--muted);">
-                All rules must be followed strictly. Failure to comply will result in punishments up to and including removal from the Illegal Civilian scheme. 
-                Keep all clips organized and submit them as required. Quality roleplay and proper escalation are mandatory.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    return;
-  }
 
   contentArea.innerHTML = `<div class="grid-wrap"><div class="grid" id="itemGrid" aria-live="polite"></div></div>`;
   itemGrid = document.getElementById('itemGrid');
